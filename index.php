@@ -83,4 +83,23 @@ $app->get('/movie/name/{name}', function($name) use($locd,$user,$pass,$dbna){
 	return json_encode($return);
 });
 
+$app->get('/', function(){
+	return '<table>
+		<tr>
+			<td><b>What</b></td>
+			<td><b>Url</b></td>
+		</tr><tr>
+			<td>Get all movies</td>
+			<td><a href="./movie/all">/movie/all</a></td>
+		</tr><tr>
+			<td>Get movie by id</td>	
+			<td><a href="./movie/id/1">/movie/id/1</a></td>
+		</tr><tr>
+			<td>Get movie by name</td>
+			<td><a href="./movie/name/the%20matrix">/movie/name/the matrix</a></td>
+		</tr>
+	</table>';
+	;
+});
+
 $app->run();
