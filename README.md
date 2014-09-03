@@ -26,3 +26,5 @@ Media center to run on your nas / homeserver that uses html5 + AngularJS to disp
 ## Thanks
 * [blog post about http request in angular](http://www.bennadel.com/blog/2612-using-the-http-service-in-angularjs-to-make-ajax-requests.htm)
 * template [miniport](http://html5up.net/uploads/demos/miniport/) from [html5up](http://html5up.net/)
+ * [miniport_license](/frontend/LICENSE_miniport.txt)
+ * [miniport_README](/frontend/README_miniport.txt)
