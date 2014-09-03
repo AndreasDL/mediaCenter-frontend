@@ -15,13 +15,21 @@ Media center to run on your nas / homeserver that uses html5 + AngularJS to disp
 ## installation
 * install lamp
 * mysql -u "user" -p < backend/database/database.sql (create database) 
-* mysql -u "user" -p < backend/database/dummyData<data.sql (dummydata)
 * Run php composer.phar install (install silex)
 * open configTemplate.php
  * fill in user & password
  * save as config.php
 
+
 # frontend
+* If you only want dummy data you could run 
+```bash
+#generate dummydata
+python /backend/database/genDummyData.py 
+#dummydata => database
+mysql -u "user" -p < /backend/database/data.sql
+```
+
 
 ## Thanks
 * [blog post about http request in angular](http://www.bennadel.com/blog/2612-using-the-http-service-in-angularjs-to-make-ajax-requests.htm)
