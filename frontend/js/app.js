@@ -40,7 +40,7 @@
 				group.push(data[movie]);
 				i++;
 				
-				if (i % 4 == 0){
+				if (i % 6 == 0){
 					groupedData.push(group);
 					group = [];
 					i = 0;
