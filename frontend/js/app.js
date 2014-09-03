@@ -1,16 +1,13 @@
 (function(){
-	console.log("nothing");
-	var app = angular.module('mediater', []);
+	var app = angular.module('mediaCenter', []);
 
 	app.controller("MovieController", function( $scope, movieService){
-		console.log("movieController");
 		$scope.movies = [];
 		loadRemoteData();
 
 
 
 		function loadRemoteData(){
-			console.log("loadRemoteData");
 			movieService.getMovies().then(function(movies){
 				$scope.movies = movies
 			});
@@ -19,28 +16,43 @@
 	});
 
 	app.service("movieService", function( $http, $q ){
-		console.log("movieService");
 		return({
 			getMovies: getMovies
 		});
 
 		//get all movies (<api>/movies/all)
 		function getMovies(){
-			console.log("getMovies");
 			var request = $http({
 				method: "get",
-				url: "localhost/mediaCenter/backend/movie/all"
+				url: "http://localhost/mediaCenter/backend/movie/all"
 			});
-			console.log( request );
 			return ( request.then(handleSucces, handleError) );
 		}
 
 		function handleSucces(response){
-			console.log("success!");
-			return( response.data );
+			var data = response.data;
+			var groupedData = [];
+
+			//group per 4
+			var i = 0;
+			var group = [];
+			for (movie in data){
+				group.push(data[movie]);
+				i++;
+				
+				if (i % 4 == 0){
+					groupedData.push(group);
+					group = [];
+					i = 0;
+				}
+			}
+			groupedData.push(group);
+
+			console.log("Got: ");
+			console.log(groupedData);
+			return( groupedData );
 		}
 		function handleError(response){
-			console.log("error!");
 			if( !angular.isObject( response.data ) || !response.data.message) {
             	return( $q.reject( "An unknown error occurred." ) );
         	}

@@ -14,7 +14,8 @@ Media center to run on your nas / homeserver that uses html5 + AngularJS to disp
 
 ## installation
 * install lamp
-* mysql -u "user" -p < backend/database.sql (create database) 
+* mysql -u "user" -p < backend/database/database.sql (create database) 
+* mysql -u "user" -p < backend/database/dummyData<data.sql (dummydata)
 * Run php composer.phar install (install silex)
 * open configTemplate.php
  * fill in user & password
