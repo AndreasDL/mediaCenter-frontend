@@ -29,7 +29,7 @@
 			console.log("getMovies");
 			var request = $http({
 				method: "get",
-				url: "http://localhost/mediater-backend/movie/all"
+				url: "localhost/mediaCenter/backend/movie/all"
 			});
 			console.log( request );
 			return ( request.then(handleSucces, handleError) );
