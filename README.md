@@ -10,7 +10,7 @@ Media center to run on your nas / homeserver that uses html5 + AngularJS to disp
  * FYI i don't know a lot about silex so things might get pretty dirty
 * uses mysql or equivalent, sql definiton of database included.
 * Login data is needed via config.php, a template for you to fill in is included in configTemplate.php
-* dummy data = top 250 from imdb, the script creates a part of the list, if you just want to load the data then just load data.sql
+* dummy data = top 250 movies from imdb + top 100 series
 
 ## installation
 * install lamp
@@ -18,7 +18,10 @@ Media center to run on your nas / homeserver that uses html5 + AngularJS to disp
 ```bash
 mysql -u "user" -p < backend/database/database.sql
 ```
-* Run php composer.phar install (install silex)
+* Install silex
+```bash
+php composer.phar install
+```
 * open configTemplate.php
  * fill in user & password
  * save as config.php
