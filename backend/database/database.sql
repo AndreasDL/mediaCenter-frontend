@@ -10,13 +10,13 @@ create table movies (
 	thumbPath varchar(255) not null
 );
 
-create database series(
+create table series (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(255) not null,
 	thumbPath varchar(255) not null
 );
-create database episodes(
-	serieId INT NOT NULL, --References series.id
+create table episodes (
+	serieId INT NOT NULL, #--References series.id
 	season INT NOT NULL,
 	episode INT NOT NULL
 );

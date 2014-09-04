@@ -42,7 +42,8 @@ mysql -u "user" -p < /backend/database/data.sql
 
 
 ## Thanks
-* [blog post about http request in angular](http://www.bennadel.com/blog/2612-using-the-http-service-in-angularjs-to-make-ajax-requests.htm)
 * template [miniport](http://html5up.net/uploads/demos/miniport/) from [html5up](http://html5up.net/)
  * [miniport_license](/frontend/LICENSE_miniport.txt)
  * [miniport_README](/frontend/README_miniport.txt)
+* [blog post about http request in angular](http://www.bennadel.com/blog/2612-using-the-http-service-in-angularjs-to-make-ajax-requests.htm)
+* [routing in angular](http://scotch.io/tutorials/javascript/single-page-apps-with-angularjs-routing-and-templating)

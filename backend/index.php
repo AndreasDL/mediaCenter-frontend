@@ -59,7 +59,6 @@ $app->get('/movie/id/{id}', function($id) use($locd,$user,$pass,$dbna){
 	$db->close();
 	return json_encode($return);
 });
-
 $app->get('/movie/name/{name}', function($name) use($locd,$user,$pass,$dbna){
 	$db = new mysqli($locd,$user,$pass,$dbna);
 
@@ -83,6 +82,71 @@ $app->get('/movie/name/{name}', function($name) use($locd,$user,$pass,$dbna){
 	return json_encode($return);
 });
 
+//movies
+$app->get('/serie/all', function() use($locd,$user,$pass,$dbna){
+	$db = new mysqli($locd,$user,$pass,$dbna);
+
+	$stmt = $db->prepare("select * from series");
+	$stmt->execute();
+	$stmt->bind_result($_id,$_name,$_thumbPath);
+
+	$return = array();
+	while ($stmt->fetch()){
+		array_push($return, 
+			array( "id" => $_id,
+				"name" => $_name,
+				"thumbPath" => $_thumbPath
+			)
+		);
+	}
+	$stmt->close();
+	$db->close();
+	return json_encode($return);
+});
+$app->get('/serie/id/{id}', function($id) use($locd,$user,$pass,$dbna){
+	$db = new mysqli($locd,$user,$pass,$dbna);
+
+	$stmt = $db->prepare("select * from series where id = ?");
+	$stmt->bind_param("i",$id);
+	$stmt->execute();
+	$stmt->bind_result($_id,$_name,$_thumbPath);
+
+	$return = array();
+	while ($stmt->fetch()){
+		array_push($return, 
+			array( "id" => $_id,
+				"name" => $_name,
+				"thumbPath" => $_thumbPath
+			)
+		);
+	}
+	$stmt->close();
+	$db->close();
+	return json_encode($return);
+});
+$app->get('/serie/name/{name}', function($name) use($locd,$user,$pass,$dbna){
+	$db = new mysqli($locd,$user,$pass,$dbna);
+
+	$stmt = $db->prepare("select * from series where name = ?");
+	$stmt->bind_param("s",$name);
+	$stmt->execute();
+	$stmt->bind_result($_id,$_name,$_thumbPath);
+
+	$return = array();
+	while ($stmt->fetch()){
+		array_push($return, 
+			array( "id" => $_id,
+				"name" => $_name,
+				"thumbPath" => $_thumbPath
+			)
+		);
+	}
+	$stmt->close();
+	$db->close();
+	return json_encode($return);
+});
+
+
 $app->get('/', function(){
 	return '<table>
 		<tr>
@@ -97,6 +161,15 @@ $app->get('/', function(){
 		</tr><tr>
 			<td>Get movie by name</td>
 			<td><a href="./movie/name/the%20matrix">/movie/name/the matrix</a></td>
+		</tr><tr>
+			<td>Get all series</td>
+			<td><a href="./serie/all">/serie/all</a></td>
+		</tr><tr>
+			<td>Get serie by id</td>	
+			<td><a href="./serie/id/1">/serie/id/1</a></td>
+		</tr><tr>
+			<td>Get serie by name</td>
+			<td><a href="./serie/name/suits">/serie/name/suits</a></td>
 		</tr>
 	</table>';
 	;

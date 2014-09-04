@@ -4,7 +4,7 @@
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html ng-app="mediaCenter">
+<html>
 	<head>
 		<title>mediaCenter</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -14,6 +14,7 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
 		<script src="js/angular.min.js"></script>
+		<script src="js/angular-route.min.js"></script>
 		<script src="js/app.js"></script>
 
 		<noscript>
@@ -24,39 +25,20 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 	</head>
-	<body>
+	<body ng-app="mediaCenter">
 
 		<!-- Nav -->
 			<nav id="nav">
 				<ul class="container">
-					<li><a href="">Movies</a></li>
-					<li><a href="">Series</a></li>
+					<li><a href="#/movie/all">Movies</a></li>
+					<li><a href="#/serie/all">Series</a></li>
 					<li><a href="">Todo</a></li>
 					<li><a href="">Torrents</a></li>
 					<li><a href="">Admin</a></li>
 				</ul>
 			</nav>
 
-		<!-- movies -->
-			<div class="wrapper style" ng-controller="MovieController">
-				<article id="movies">
-					<header>
-						<h2>mediaCenter</h2>
-						<p>moving pictures!</p>
-					</header>
+			<div ng-view></div>
 
-					<div class="container">
-						<div class="row" ng-repeat="row in movies" >
-							<div class="2u" ng-repeat="movie in row">
-								<article class="box style">
-									<a href="#" class="image featured"><img ng-src="{{movie.thumbPath}}" alt="" /></a>
-									<b><a href="#">{{movie.name}}</a></b>
-									<p></p>
-								</article>
-							</div>
-						</div>
-					</div>
-				</article>
-			</div>
 	</body>
 </html>

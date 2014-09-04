@@ -61,9 +61,9 @@ for line in file:
 	if (len(title) > 0):
 		txt_title = title[0]
 		if (count > 0):
-			output.write( ",\\\n\t(\"" + txt_title + "\",\"movie.mkv\",\"" + url_img + "\")")
+			output.write( ",\\\n\t(\"" + txt_title + "\",\"" + url_img + "\")")
 		else:
-			output.write( "\\\n\t(\"" + txt_title + "\",\"movie.mkv\",\"" + url_img + "\")")
+			output.write( "\\\n\t(\"" + txt_title + "\",\"" + url_img + "\")")
 		url_img=""
 		txt_title=""
 		count += 1

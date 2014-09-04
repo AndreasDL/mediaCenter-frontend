@@ -1,32 +1,62 @@
 (function(){
-	var app = angular.module('mediaCenter', []);
+	var app = angular.module('mediaCenter', ['ngRoute']);
 
-	app.controller("MovieController", function( $scope, movieService){
-		$scope.movies = [];
-		loadRemoteData();
-
-
-
-		function loadRemoteData(){
-			movieService.getMovies().then(function(movies){
-				$scope.movies = movies
+	app.config(['$routeProvider',function($routeProvider){
+		$routeProvider.when('/movie/all', {
+				templateUrl: "templates/show-movies.html",
+				controller: 'MovieController'
+			}).when('/serie/all', {
+				templateUrl: "templates/show-series.html",
+				controller: 'SerieController'
+			}).otherwise({
+				redirectTo: '/movie/all' //default
 			});
-		}
+	}]);
+
+//movies
+	app.controller("MovieController", function( $scope, dataService){
+		$scope.movies = [];
+		dataService.getMovies().then(function(movies){
+			$scope.movies = movies
+		});
+
 		console.log($scope.movies);
 	});
 
-	app.service("movieService", function( $http, $q ){
-		return({
-			getMovies: getMovies
+
+//series
+	app.controller("SerieController", function( $scope, dataService){
+		$scope.series = [];
+		dataService.getSeries().then(function(series){
+			$scope.series = series
 		});
 
-		//get all movies (<api>/movies/all)
+		console.log($scope.series);
+	});
+
+
+	app.service("dataService", function( $http, $q ){
+		return({
+			getMovies: getMovies,
+			getSeries: getSeries
+		});
+
+		//get all movies (<api>/movie/all)
 		function getMovies(){
 			var request = $http({
 				method: "get",
 				url: "http://localhost/mediaCenter/backend/movie/all"
 			});
 			return ( request.then(handleSucces, handleError) );
+		}
+
+		//get all series (<api>/serie/all)
+		function getSeries(){
+			var request = $http({
+				method: "get",
+				url: "http://localhost/mediaCenter/backend/serie/all"
+			});
+			return( request.then(handleSucces, handleError) );
 		}
 
 		function handleSucces(response){
@@ -48,8 +78,8 @@
 			}
 			groupedData.push(group);
 
-			console.log("Got: ");
-			console.log(groupedData);
+			//console.log("Got: ");
+			//console.log(groupedData);
 			return( groupedData );
 		}
 		function handleError(response){
@@ -59,7 +89,8 @@
 	        // Otherwise, use expected error message.
 	        return( $q.reject( response.data.message ) );
 		}
-
 	});
+
+	
 
 })();

@@ -1,0 +1,21 @@
+<!-- movies -->
+<div class="wrapper style" ng-controller="SerieController">
+	<article id="series">
+		<header>
+			<h2>mediaCenter</h2>
+			<p>series</p>
+		</header>
+
+		<div class="container">
+			<div class="row" ng-repeat="row in series" >
+				<div class="2u" ng-repeat="serie in row">
+					<article class="box style">
+						<a href="#" class="image featured"><img ng-src="{{serie.thumbPath}}" alt="" /></a>
+						<b><a href="#">{{serie.name}}</a></b>
+						<p></p>
+					</article>
+				</div>
+			</div>
+		</div>
+	</article>
+</div>
