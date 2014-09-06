@@ -32,10 +32,11 @@ for line in file:
 		url_img=""
 		txt_title=""
 		count += 1
-output.write(";");
+output.write(";\n\n")
 
 #series
-imgreg = re.compile('img.+src="([^"]+)"');
+series = []
+imgreg = re.compile('img.+src="([^"]+)"')
 img2reg = re.compile('img.+loadlate="([^"]+)"')
 titlereg = re.compile('<a onclick.+href="[^>]+">([^<]+)</a>')
 output.write("USE mediaCenter;\ninsert into series (name,thumbPath) VALUES")
@@ -67,7 +68,18 @@ for line in file:
 		url_img=""
 		txt_title=""
 		count += 1
-output.write(";");
+output.write(";\n\n")
+
+counter = 0
+output.write("INSERT INTO `episodes`(`serieId`, `season`, `episode`, `moviePath`) VALUES\\\n")
+for i in range(0,count):
+	for season in range(0,5):
+		for episode in range(0,24):
+			if counter > 0 :
+				output.write(",\\\n\t(" + str(i) + "," + str(season) + ","+ str(episode) + ",\"movie.mkv\")")
+			else :
+				output.write("\\\n\t(" + str(i) + "," + str(season) + ","+ str(episode) + ",\"movie.mkv\")")
+			counter += 1
 
 
 output.close();

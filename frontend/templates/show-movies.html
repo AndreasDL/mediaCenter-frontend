@@ -1,18 +1,17 @@
 <!-- movies -->
-<div class="wrapper style" ng-controller="MovieController">
-	<article id="movies">
+<div class="wrapper style">
+	<article>
 		<header>
 			<h2>mediaCenter</h2>
-			<p>moving pictures!</p>
+			<p>Moving Pictures</p>
 		</header>
 
 		<div class="container">
-			<div class="row" ng-repeat="row in movies" >
-				<div class="2u" ng-repeat="movie in row">
+			<div class="row" ng-repeat="row in selection" >
+				<div class="2u" ng-repeat="item in row">
 					<article class="box style">
-						<a href="#" class="image featured"><img ng-src="{{movie.thumbPath}}" alt="" /></a>
-						<b><a href="#">{{movie.name}}</a></b>
-						<p></p>
+						<a href="#/movieById/{{item.id}}" class="image featured"><img ng-src="{{item.thumbPath}}" /></a>
+						<b><a href="#/movieById/{{item.id}}">{{item.name}}</a></b>
 					</article>
 				</div>
 			</div>

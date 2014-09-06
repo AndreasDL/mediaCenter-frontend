@@ -47,3 +47,4 @@ mysql -u "user" -p < /backend/database/data.sql
  * [miniport_README](/frontend/README_miniport.txt)
 * [blog post about http request in angular](http://www.bennadel.com/blog/2612-using-the-http-service-in-angularjs-to-make-ajax-requests.htm)
 * [routing in angular](http://scotch.io/tutorials/javascript/single-page-apps-with-angularjs-routing-and-templating)
+* [routing in angular - outdated](http://viralpatel.net/blogs/angularjs-routing-and-views-tutorial-with-example/)

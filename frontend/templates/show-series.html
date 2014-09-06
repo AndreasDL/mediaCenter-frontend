@@ -1,18 +1,17 @@
-<!-- movies -->
-<div class="wrapper style" ng-controller="SerieController">
-	<article id="series">
+<!-- series -->
+<div class="wrapper style">
+	<article>
 		<header>
 			<h2>mediaCenter</h2>
-			<p>series</p>
+			<p>Moving Parts</p>
 		</header>
 
 		<div class="container">
-			<div class="row" ng-repeat="row in series" >
-				<div class="2u" ng-repeat="serie in row">
+			<div class="row" ng-repeat="row in selection" >
+				<div class="2u" ng-repeat="item in row">
 					<article class="box style">
-						<a href="#" class="image featured"><img ng-src="{{serie.thumbPath}}" alt="" /></a>
-						<b><a href="#">{{serie.name}}</a></b>
-						<p></p>
+						<a href="#/serieById/{{item.id}}" class="image featured"><img ng-src="{{item.thumbPath}}" /></a>
+						<b><a href="#/serieById/{{item.id}}">{{item.name}}</a></b>
 					</article>
 				</div>
 			</div>
