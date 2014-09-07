@@ -33,6 +33,11 @@
 				controller: "EpisodeByIdController"
 			})
 
+			//torrents
+			.when('/torrents', {
+				templateUrl: "templates/show-torrents.html"
+			})
+
 			//default
 			.otherwise({
 				redirectTo: '/movie/all'
