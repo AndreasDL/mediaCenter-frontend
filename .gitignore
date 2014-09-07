@@ -4,3 +4,4 @@ composer.lock
 /phpunit.xml
 config.php
 data.sql
+output.sql
