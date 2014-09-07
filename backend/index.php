@@ -82,7 +82,7 @@ $app->get('/movie/name/{name}', function($name) use($locd,$user,$pass,$dbna){
 	return json_encode($return);
 });
 
-//movies
+//series
 $app->get('/serie/all', function() use($locd,$user,$pass,$dbna){
 	$db = new mysqli($locd,$user,$pass,$dbna);
 
@@ -109,7 +109,7 @@ $app->get('/serie/id/{id}', function($id) use($locd,$user,$pass,$dbna){
 	$stmt = $db->prepare("select * from episodes e 
 		join series s on s.id = e.serieId
 			where e.serieId = ?
-		order by season,episode");
+		order by season DESC,episode DESC");
 	$stmt->bind_param("i",$id);
 	$stmt->execute();
 	$stmt->bind_result($_episodeId,$_serieId,$_season,$_episode,$_moviePath,$_id,$_name,$_thumbPath);
@@ -137,7 +137,7 @@ $app->get('/serie/name/{name}', function($name) use($locd,$user,$pass,$dbna){
 	$stmt = $db->prepare("select * from episodes e 
 		join series s on s.id = e.serieId
 			where s.name = ?
-		order by season,episode");
+		order by season DESC,episode DESC");
 	$stmt->bind_param("s",$name);
 	$stmt->execute();
 	$stmt->bind_result($_episodeId,$_serieId,$_season,$_episode,$_moviePath,$_id,$_name,$_thumbPath);
@@ -146,6 +146,32 @@ $app->get('/serie/name/{name}', function($name) use($locd,$user,$pass,$dbna){
 	while ($stmt->fetch()){
 		array_push($return, 
 			array( "id" => $_id,
+				"episodeId" => $_episodeId,
+				"season" => $_season,
+				"episode" => $_episode,
+				"moviePath" => $_moviePath,
+				"name" => $_name,
+				"thumbPath" => $_thumbPath
+			)
+		);
+	}
+	$stmt->close();
+	$db->close();
+	return json_encode($return);
+});
+
+$app->get("/episode/id/{id}", function($id) use($locd,$user,$pass,$dbna){
+	$db = new mysqli($locd,$user,$pass,$dbna);
+
+	$stmt = $db->prepare("select * from episodes e join series s on e.serieId = s.id where e.episodeId = ?");
+	$stmt->bind_param("i",$id);
+	$stmt->execute();
+	$stmt->bind_result($_episodeId,$_serieId,$_season,$_episode,$_moviePath,$_id,$_name,$_thumbPath);
+
+	$return = array();
+	while ($stmt->fetch()){
+		array_push($return,
+			array( "serieId" => $_serieId,
 				"episodeId" => $_episodeId,
 				"season" => $_season,
 				"episode" => $_episode,

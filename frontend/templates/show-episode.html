@@ -1,0 +1,15 @@
+<div class="wrapper style1 first">
+	<article class="container">
+		<header>
+				<h1>{{episode.name}}</h1>
+				<h2>{{"S" + episode.season + "E" + episode.episode}}</h2>
+		</header>
+		<div class="row">
+			<div class="12u">
+				<video width="1080" height="720" controls>
+					<source src="{{episode.moviePath}}">
+				</video>
+			</div>
+		</div>
+	</article>
+</div>

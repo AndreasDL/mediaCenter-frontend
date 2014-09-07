@@ -73,7 +73,7 @@ output.write(";\n\n")
 counter = 0
 output.write("INSERT INTO `episodes`(`serieId`, `season`, `episode`, `moviePath`) VALUES\\\n")
 for i in range(0,count):
-	for season in range(0,5):
+	for season in range(0,10):
 		for episode in range(0,24):
 			if counter > 0 :
 				output.write(",\\\n\t(" + str(i) + "," + str(season) + ","+ str(episode) + ",\"movie.mkv\")")

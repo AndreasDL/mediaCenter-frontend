@@ -3,14 +3,19 @@
 	<article>
 		<header>
 			<h2>mediaCenter</h2>
-			<p><b><a href="#/serieById/">{{item.id}}</b></p>
+			<p><b>{{selection[0][0].name}}</b></p>
 		</header>
 
 		<div class="container">
-			<div class="row" ng-repeat="season in selection" >
-				<div class="2u" ng-repeat="episode in season">
+			<div class="row" ng-repeat="group in selection">
+				<div class="2u" ng-repeat="season in group" >
 					<article class="box style">
-						<b><a href="#/">{{ "S" + episode.season + "E" + episode.episode}}</a></b>
+						<header><b>Season {{season[0].season}}</b></header>
+						<ul ng-repeat="episode in season | reverse">
+							<li>
+								<a href="#/episodeById/{{episode.episodeId}}">{{ "S" + episode.season + "E" + episode.episode}}</a>
+							</li>
+						</ul>
 					</article>
 				</div>
 			</div>

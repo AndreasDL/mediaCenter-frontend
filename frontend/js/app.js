@@ -8,10 +8,10 @@
 				templateUrl: "templates/show-movies.html",
 				controller: 'MoviesController',
 			}).when('/movieById/:id', {
-				templateUrl: "templates/show-video.html",
+				templateUrl: "templates/show-movie.html",
 				controller: 'MovieIdController'
 			}).when('/movieByName/:name', {
-				templateUrl: "templates/show-video.html",
+				templateUrl: "templates/show-movie.html",
 				controller: 'MovieNameController'
 			})
 
@@ -27,12 +27,46 @@
 				controller: 'SerieByNameController'
 			})
 
+			//episodes
+			.when('/episodeById/:id', {
+				templateUrl: "templates/show-episode.html",
+				controller: "EpisodeByIdController"
+			})
+
 			//default
 			.otherwise({
 				redirectTo: '/movie/all'
 			});
 	}]);
 
+	app.filter("reverse", function(){
+		return function(items){
+			return items.slice().reverse();
+		}
+	});
+
+	app.filter("makerows", function(){
+		return function(data){
+			var groupedData = [];
+
+			//group per row
+			var i = 0;
+			var group = [];
+			for (movie in data){
+				group.push(data[movie]);
+				i++;
+				
+				if (i % 6 == 0){
+					groupedData.push(group);
+					group = [];
+					i = 0;
+				}
+			}
+			groupedData.push(group);
+
+			return groupedData;
+		}
+	});
 
 //movies
 	app.controller("MoviesController", function( $scope, dataService){
@@ -62,17 +96,23 @@
 		});
 	});
 	app.controller("SerieByIdController", function($scope,dataService,$routeParams){
-		console.log("hoi" + $routeParams.id);
 		$scope.episodes = [];
 		dataService.getSerieId($routeParams.id).then(function(series){
 			$scope.selection = series
-			console.log(series)
 		});
 	});
 	app.controller("SerieByNameController", function($scope,dataService,$routeParams){
 		$scope.episodes = [];
 		dataService.getSerieName($routeParams.name).then(function(series){
 			$scope.selection = series
+		});
+	});
+
+//episodes
+	app.controller("EpisodeByIdController", function($scope,dataService,$routeParams){
+		$scope.episode = "";
+		dataService.getEpisodeId($routeParams.id).then(function(episode){
+			$scope.episode = episode;
 		});
 	});
 
@@ -86,7 +126,9 @@
 			
 			getSeries: getSeries,
 			getSerieId: getSerieId,
-			getSerieName: getSerieName
+			getSerieName: getSerieName,
+
+			getEpisodeId: getEpisodeId
 		});
 
 		//get all movies (<api>/movie/all)
@@ -136,6 +178,17 @@
 			return( request.then(handleSerieSucces,handleError) );
 		}
 
+		//episodes
+		function getEpisodeId(id){
+			var request = $http({
+				method: "get",
+				url: "../backend/episode/id/" + encodeURIComponent(id)
+			});
+			return( request.then(handleSucces, handleError) );
+
+		}
+
+		//handle success
 		function handleSucces(response){ //get first element of the returned list (everything is returned as a list)
 			return response.data[0];
 		}
@@ -143,7 +196,7 @@
 			var data = response.data;
 			var groupedData = [];
 
-			//group per 4
+			//group per row
 			var i = 0;
 			var group = [];
 			for (movie in data){
@@ -170,11 +223,35 @@
 				if (!groupedData[data[i]["season"]]){
 					groupedData[data[i]["season"]] = [];
 				}
-				console.log(data[i]["season"] + "\t" + data[i]["episode"]);
 				groupedData[ data[i]["season"] ][ data[i]["episode"] ] = data[i];
 			}
+			console.log(groupedData);
 
-			return( groupedData );
+			//reverse
+			groupedData = groupedData.slice().reverse();
+	
+			console.log(groupedData);
+
+			//group per 6 seasons
+			var result= [];
+			var group = [];
+			var i = 0;
+			for (s in groupedData){
+				group.push(groupedData[s]);
+				i++;
+
+				if ( i % 6 == 0){
+					console.log(group);
+					result.push(group);
+					group = [];
+					i = 0;
+				}
+			}
+			result.push(group);
+
+			console.log(result);
+
+			return( result );
 		}
 		function handleError(response){
 			if( !angular.isObject( response.data ) || !response.data.message) {
