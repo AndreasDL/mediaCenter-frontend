@@ -9,6 +9,8 @@ Silex - PHP backend api
 
 ## installation
 * install lamp
+ * mod rewrite
+ * mod mysqli
 * create database
 ```bash
 mysql -u "user" -p < backend/database/database.sql
@@ -17,9 +19,12 @@ mysql -u "user" -p < backend/database/database.sql
 ```bash
 php composer.phar install
 ```
+ * Don't forget to enable the phar extensions in /etc/php/php.ini & to install php-composer (arch linux)
 * open configTemplate.php
  * fill in user & password
  * save as config.php
+
+* Optional => configure transmission deamon as described in this [blog post](https://raymii.org/s/blog/Transmission-Raspberry-Pi-Arch-Linux.html)
 
 ## notes
 * Uses silex, composer file included
