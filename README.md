@@ -45,6 +45,8 @@ python /backend/database/genDummyData.py
 mysql -u "user" -p < /backend/database/data.sql
 ```
 
+* admin is a link to phpmyadmin for bugfixes
+
 
 ## Thanks
 * template [miniport](http://html5up.net/uploads/demos/miniport/) from [html5up](http://html5up.net/)
