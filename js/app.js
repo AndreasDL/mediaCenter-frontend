@@ -140,21 +140,21 @@
 		function getMovies(){
 			var request = $http({
 				method: "get",
-				url: "../backend/movie/all"
+				url: "backend/movie/all"
 			});
 			return ( request.then(handleSelectionSucces, handleError) );
 		}
 		function getMovieId(id){
 			var request = $http({
 				method: "get", 
-				url: "../backend/movie/id/" + encodeURIComponent(id)
+				url: "backend/movie/id/" + encodeURIComponent(id)
 			});
 			return( request.then(handleSucces,handleError) );
 		}
 		function getMovieName(name){
 			var request = $http({
 				method: "get", 
-				url: "../backend/movie/name/" + encodeURIComponent(name)
+				url: "backend/movie/name/" + encodeURIComponent(name)
 			});
 			return( request.then(handleSucces,handleError) );
 		}
@@ -164,21 +164,21 @@
 		function getSeries(){
 			var request = $http({
 				method: "get",
-				url: "../backend/serie/all"
+				url: "backend/serie/all"
 			});
 			return( request.then(handleSelectionSucces, handleError) );
 		}
 		function getSerieId(id){
 			var request = $http({
 				method: "get", 
-				url: "../backend/serie/id/" + encodeURIComponent(id)
+				url: "backend/serie/id/" + encodeURIComponent(id)
 			});
 			return( request.then(handleSerieSucces,handleError) );
 		}
 		function getSerieName(name){
 			var request = $http({
 				method: "get", 
-				url: "../backend/serie/name/" + encodeURIComponent(name)
+				url: "backend/serie/name/" + encodeURIComponent(name)
 			});
 			return( request.then(handleSerieSucces,handleError) );
 		}
@@ -187,7 +187,7 @@
 		function getEpisodeId(id){
 			var request = $http({
 				method: "get",
-				url: "../backend/episode/id/" + encodeURIComponent(id)
+				url: "backend/episode/id/" + encodeURIComponent(id)
 			});
 			return( request.then(handleSucces, handleError) );
 
