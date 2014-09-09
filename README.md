@@ -24,6 +24,12 @@ php composer.phar install
  * fill in user & password
  * save as config.php
 
+* Scripts
+ * python 3.4
+ * [pymysql](https://github.com/PyMySQL/PyMySQL)
+ * [httplib2](https://github.com/jcgregorio/httplib2)
+
+
 * Optional => configure transmission deamon as described in this [blog post](https://raymii.org/s/blog/Transmission-Raspberry-Pi-Arch-Linux.html)
 
 ## notes
