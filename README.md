@@ -23,14 +23,12 @@ php composer.phar install
 * open configTemplate.php
  * fill in user & password
  * save as config.php
-
-* Scripts
+* Things needed for the scripts
  * python 3.4
  * [pymysql](https://github.com/PyMySQL/PyMySQL)
  * [httplib2](https://github.com/jcgregorio/httplib2)
 
-
-* Optional => configure transmission deamon as described in this [blog post](https://raymii.org/s/blog/Transmission-Raspberry-Pi-Arch-Linux.html)
+* configure transmission deamon as described in this [blog post](https://raymii.org/s/blog/Transmission-Raspberry-Pi-Arch-Linux.html) & adjust ip adres in templates/show-torrents.html
 
 ## notes
 * Uses silex, composer file included
@@ -46,9 +44,9 @@ html5 js css - AngularJS jQuery
 * If you only want dummy data you could run 
 ```bash
 #generate dummydata
-python /backend/database/genDummyData.py 
+python /scripts/genDummyData.py 
 #dummydata => database
-mysql -u "user" -p < /backend/database/data.sql
+mysql -u "user" -p < /scripts/data.sql
 ```
 
 * admin is a link to phpmyadmin for bugfixes
