@@ -40,11 +40,19 @@ else
 		MOVIEPATH=$(find "$1" -type f -iname "*.avi" | head -n 1);
 	
 		if [ "$MOVIEPATH" != "" ]; then
-			echo "\tavi found, we don't like avi so converting to mkv";
-			OLDPATH=$MOVIEPATH;
-			MOVIEPATH="${OLDPATH/.avi/.mkv}";
-			ffmpeg -i "$OLDPATH" "$MOVIEPATH";
-			EXT="mkv";
+			while true; do
+				read -p "\tavi found, we don't like avi! Do you like to convert this file?" yn;
+			    case $yn in
+			        [Yy]* ) 
+						OLDPATH=$MOVIEPATH;
+						MOVIEPATH="${OLDPATH/.avi/.mkv}";
+						ffmpeg -i "$OLDPATH" "$MOVIEPATH";
+						EXT="mkv"
+						;;
+			        [Nn]* ) exit;;
+			        * ) echo "Please answer yes(y) or no(n).";;
+			    esac
+			done
 		else
 			echo "?! no movie found in path: $1";
 			echo "supported extensions are .mp4, .mkv & .avi (with conversion)";
