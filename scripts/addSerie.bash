@@ -1,10 +1,13 @@
 SAVEPATH="/mnt/series/";
 
-if [ $# -lt 4 ]; then
-	echo "Needed <directory> <name> <Pic url> <season1 episode Count> [season2 episode Count] ...";
+if [ $# -lt 5 ]; then
+	echo "Needed <password> <directory> <name> <Pic url> <season1 episode Count> [season2 episode Count] ...";
 	exit;
 else
-	if [ ! -d $1 ]; then
+	PASS=$1;
+	shift;
+	
+	if [ ! -d "$1" ]; then
 		echo "$1 is not a valid directory";
 		exit;
 	fi
@@ -37,54 +40,18 @@ else
 		echo "Season $SEASON"
 		for i in `seq 1 $var`;
 		do
-			ATTDRIE="S${SEASON}E$i";
-			ATTVIER="S${SEASON}E$i";
-
-			if [ ${#i} -eq 1 ]; then
-				i="0$i";
-			fi
-			ATTEEN="S${SEASON}E$i";
-			ATTWEE="S${SEASON}x$i";
-
-			TEMP="$SEASON";
-			if [ ${#SEASON} -eq 1 ]; then
-				TEMP="O$TEMP";
-			fi
-			ATTVIJF="S${TEMP}E$i";
-			ATTZES="S${TEMP}x$i";
-
-			echo "$ATTEEN $ATTWEE $ATTDRIE $ATTVIER $ATTVIJF $ATTZES";
-
-			MOVIEPATH=$(find "$DIR" -type f -iname "*${ATTEEN}*");
+			TEMPI="0$i";
+			TEMP="O$SEASON";
+	
+			MOVIEPATH=$(find "$DIR" -type f -iregex ".*s\($TEMP\|$SEASON\)\(E\|X\)\($i\|$TEMPI\).*\(avi\|mkv\|mp4\)" );
+#			
 			if [ "$MOVIEPATH" == "" ]; then
-				echo "  ${ATTEEN} Not found!";
-				MOVIEPATH=$(find "$DIR" -type f -iname "*${ATTWEE}*");
-			fi
-			if [ "$MOVIEPATH" == "" ]; then
-				echo "  ${ATTWEE} Not found!";
-				MOVIEPATH=$(find "$DIR" -type f -iname "*${ATTDRIE}*");
-			fi
-			if [ "$MOVIEPATH" == "" ]; then
-				echo "  ${ATTDRIE} Not found!";
-				MOVIEPATH=$(find "$DIR" -type f -iname "*${ATTVIER}*");
-			fi
-			if [ "$MOVIEPATH" == "" ]; then
-				echo "  ${ATTVIER} Not found!";
-				echo "find \"$DIR\" -type f -iname \"*${ATTVIJF}*\"";
-				MOVIEPATH=$(find "$DIR" -type f -iname "*${ATTVIJF}*");
-			fi
-			if [ "$MOVIEPATH" == "" ]; then
-				echo "  ${ATTVIJF} Not found!";
-				MOVIEPATH=$(find "$DIR" -type f -iname "*${ATTZES}*");
-			fi
-
-			if [ "$MOVIEPATH" == "" ]; then
-				echo "  $ATTZES  not found"
+				echo "Path not found";
 				continue;
 			fi
 
-			echo "Found $ATTEEN at $MOVIEPATH";
-			#add to mysql
+			echo "Found S${SEASON}E${TEMP} at $MOVIEPATH";
+			#add to mysqls
 			#echo "add to mysql";
 			
 			#THUMBPATH="$SAVEPATH$NAME/pic.jpg";
@@ -92,7 +59,7 @@ else
 			#MOVIEPATH=${MOVIEPATH:1:${#MOVIEPATH}-1};	
 			#THUMBPATH=${THUMBPATH:1:${#THUMBPATH}-1};
 
-			#mysql -u "root" -p -D mediaCenter -e "insert into movies (name,moviePath,thumbPath) VALUES (\"$NAME\",\"$MOVIEPATH\",\"$THUMBPATH\");"
+			#mysql -u "root" -p $PASS -D mediaCenter -e "insert into movies (name,moviePath,thumbPath) VALUES (\"$NAME\",\"$MOVIEPATH\",\"$THUMBPATH\");"
 
 		done
 		let SEASON=SEASON+1;

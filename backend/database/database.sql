@@ -22,3 +22,9 @@ create table episodes (
 	episode INT NOT NULL,
 	moviePath varchar(255) NOT NULL
 );
+
+create table requests{
+	name VARCHAR(255) not null,
+	description VARCHAR(255),
+	status INT not null
+};
