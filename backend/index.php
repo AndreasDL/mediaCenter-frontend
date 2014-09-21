@@ -186,6 +186,26 @@ $app->get("/episode/id/{id}", function($id) use($locd,$user,$pass,$dbna){
 	return json_encode($return);
 });
 
+$app->get("/requests/all", function() use ($locd,$user,$pass,$dbna){
+	$db = new mysqli($locd,$user,$pass,$dbna);
+
+	$stmt = $db->prepare("select * from requests");
+	$stmt->execute();
+	$stmt->bind_result($_name,$_description,$_status);
+
+	$return = array();
+	while ($stmt->fetch()){
+		array_push($return,
+			array( "name" => $_name,
+				"description" => $_description,
+				"status" => $_status
+			)
+		);
+	}
+	$stmt->close();
+	$db->close();
+	return json_encode($return);
+});
 
 $app->get('/', function(){
 	return '<table>
@@ -210,6 +230,9 @@ $app->get('/', function(){
 		</tr><tr>
 			<td>Get serie by name</td>
 			<td><a href="./serie/name/suits">/serie/name/suits</a></td>
+		</tr><tr>
+			<td>Get all requests</td>
+			<td><a href="./requests/all">/requests/all</a></td>
 		</tr>
 	</table>';
 	;

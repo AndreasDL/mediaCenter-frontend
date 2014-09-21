@@ -33,6 +33,12 @@
 				controller: "EpisodeByIdController"
 			})
 
+			//requests
+			.when('/requests/all', {
+				templateUrl: "templates/show-requests.html",
+				controller: "RequestController"
+			})
+
 			//torrents
 			.when('/torrents', {
 				templateUrl: "templates/show-torrents.html"
@@ -49,7 +55,7 @@
 			return items.slice().reverse();
 		}
 	});
-
+/*
 	app.filter("makerows", function(){
 		return function(data){
 			var groupedData = [];
@@ -72,7 +78,7 @@
 			return groupedData;
 		}
 	});
-
+*/
 //movies
 	app.controller("MoviesController", function( $scope, dataService){
 		$scope.movies = [];
@@ -121,6 +127,13 @@
 		});
 	});
 
+//requests
+	app.controller("RequestController", function($scope, dataService){
+		$scope.requests = "";
+		dataService.getRequests().then(function(requests){
+			$scope.requests = requests;
+		});
+	});
 
 //Service
 	app.service("dataService", function( $http, $q ){
@@ -133,7 +146,9 @@
 			getSerieId: getSerieId,
 			getSerieName: getSerieName,
 
-			getEpisodeId: getEpisodeId
+			getEpisodeId: getEpisodeId,
+
+			getRequests: getRequests
 		});
 
 		//get all movies (<api>/movie/all)
@@ -190,7 +205,15 @@
 				url: "backend/episode/id/" + encodeURIComponent(id)
 			});
 			return( request.then(handleSucces, handleError) );
+		}
 
+		//requests
+		function getRequests(){
+			var request = $http({
+				method: "get",
+				url: "backend/requests/all"
+			});
+			return( request.then(handleSelectionSucces, handleError) );
 		}
 
 		//handle success
@@ -198,6 +221,7 @@
 			return response.data[0];
 		}
 		function handleSelectionSucces(response){ //Expect list (everything is returned as a list)
+			//expext a list & groups per 6
 			var data = response.data;
 			var groupedData = [];
 
@@ -219,6 +243,7 @@
 			return( groupedData );
 		}
 		function handleSerieSucces(response){
+			//expects mulitple seasons & groups the seasons per 6
 			var data = response.data;
 			var groupedData = [];
 			groupedData[0]  = [];
